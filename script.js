@@ -23,10 +23,22 @@ async function getWeather() {
 
 function displayCurrentWeather(data) {
     const weatherInfo = document.getElementById('weather-info');
+    const temperature = data.main.temp;
+    let description;
+
+    if (temperature <= 15) {
+        description = "Cold";
+    } else if (temperature > 15 && temperature <= 25) {
+        description = "Warm";
+    } else {
+        description = "Hot";
+    }
+
     weatherInfo.innerHTML = `
         <h2>${data.name}</h2>
-        <p>Temperature: ${data.main.temp} °C</p>
+        <p>Temperature: ${temperature} °C</p>
         <p>Weather: ${data.weather[0].description}</p>
+        <p>It is currently ${description}.</p>
     `;
 }
 
