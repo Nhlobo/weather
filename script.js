@@ -23,22 +23,14 @@ async function getWeather() {
 
 function displayCurrentWeather(data) {
     const weatherInfo = document.getElementById('weather-info');
-    const temperature = data.main.temp;
-    let description;
-
-    if (temperature <= 15) {
-        description = "Cold";
-    } else if (temperature > 15 && temperature <= 25) {
-        description = "Warm";
-    } else {
-        description = "Hot";
-    }
+    const temp = data.main.temp;
+    const weatherCondition = temp <= 15 ? 'Cold' : temp <= 25 ? 'Warm' : 'Hot';
 
     weatherInfo.innerHTML = `
         <h2>${data.name}</h2>
-        <p>Temperature: ${temperature} °C</p>
+        <p>Temperature: ${temp} °C</p>
         <p>Weather: ${data.weather[0].description}</p>
-        <p>It is currently ${description}.</p>
+        <p>Condition: ${weatherCondition}</p>
     `;
 }
 
@@ -78,4 +70,4 @@ function displayForecast(data) {
             }
         }
     });
-}
+                      }
