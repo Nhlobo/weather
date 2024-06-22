@@ -9,7 +9,7 @@ This simple web application fetches and displays weather data for South African 
 - Shows a 5-day forecast with temperature trends using a line chart.
 - Responsive design suitable for various devices.
 
-## Technologies Used
+#Technologies Used
 
 - HTML
 - CSS
@@ -38,7 +38,7 @@ To run this project locally, follow these steps:
 
 ## Screenshots
 
-[Add screenshots here if available]
+nhlobo.github.io./weather/
 
 ## Contributing
 
@@ -51,10 +51,3 @@ This project is licensed under the MIT License. See the LICENSE file for details
 ## Contact
 
 Nhlovo Mathebula - [GitHub](https://github.com/Nhlobo) - [LinkedIn](https://linkedin.com/in/nhlovo-mathebula) - Email: nhlobo365@gmail.com
-
----
-
-&copy; 2024 Nhlovo Mathebula. All rights reserved.
-```
-
-Replace placeholders like screenshots with actual images if available. This `README.md` covers the basic setup instructions, features, technologies used, contribution guidelines, and contact information. Adjust it further based on additional features or specific instructions relevant to your project.
