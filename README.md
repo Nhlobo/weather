@@ -37,8 +37,8 @@ To run this project locally, follow these steps:
 - Click the "Search" button to fetch and display the current weather and 5-day forecast for that city.
 
 ## Screenshots
+https://i.imgur.com/vIRkvlN.jpeg
 
-nhlobo.github.io./weather/
 
 ## Contributing
 
