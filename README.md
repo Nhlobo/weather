@@ -42,9 +42,8 @@ To run this project locally, follow these steps:
 
 
 
-## Contributing
-
-Contributions are welcome! Fork the repository and submit a pull request.
+## Author
+Nhlovo Mathebula - [GitHub](https://github.com/Nhlobo) 
 
 ## License
 
