@@ -26,5 +26,23 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
+<script>
+    // Listen for changes in the network connection status
+    window.addEventListener('load', function() {
+        function updateOnlineStatus() {
+            if (!navigator.onLine) {
+                // Redirect to the custom 404 page when offline
+                window.location.href = '404.html';
+            }
+        }
+
+        // Check immediately in case they’re already offline
+        updateOnlineStatus();
+
+        // Listen for future changes to the network status
+        window.addEventListener('offline', updateOnlineStatus);
+    });
+    </script>
+    
 </body>
 </html>
