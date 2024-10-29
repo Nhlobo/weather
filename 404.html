@@ -4,7 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>No Internet Connection</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animated Icon */
+        .error-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            animation: rotate 2s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        /* Headings and Paragraphs */
+        h1 {
+            font-size: 1.8em;
+            color: #ff6347;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Button Styling */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #ff6347;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e0533a;
+        }
+
+        /* Help Text */
+        .help {
+            font-size: 0.9em;
+            color: #999;
+            margin-top: 15px;
+        }
+
+        /* Icon Rotation Animation */
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
