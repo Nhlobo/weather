@@ -10,6 +10,68 @@ document.getElementById('geo-button').addEventListener('click', getWeatherByGeol
 // Add event listener for unit toggle
 document.getElementById('toggle-units').addEventListener('click', toggleUnits);
 
+// Add event listener for share button
+document.getElementById('share-button').addEventListener('click', showShareModal);
+
+// Add event listener for close button in the share modal
+document.getElementById('close-modal').addEventListener('click', closeShareModal);
+
+// Event listeners for social media sharing icons
+document.getElementById('whatsapp-icon').addEventListener('click', () => handleShare('whatsapp'));
+document.getElementById('twitter-icon').addEventListener('click', () => handleShare('twitter'));
+document.getElementById('facebook-icon').addEventListener('click', () => handleShare('facebook'));
+document.getElementById('linkedin-icon').addEventListener('click', () => handleShare('linkedin'));
+
+// Show the Share Modal
+function showShareModal() {
+    document.getElementById('share-modal').style.display = 'block';
+}
+
+// Close the Share Modal
+function closeShareModal() {
+    document.getElementById('share-modal').style.display = 'none';
+}
+
+// Handle social media sharing logic
+function handleShare(platform) {
+    const location = document.getElementById('location-input').value;
+    const temperature = document.getElementById('temperature').textContent;
+    const feelsLike = document.getElementById('feels-like').textContent;
+    const humidity = document.getElementById('humidity').textContent;
+    const windSpeed = document.getElementById('wind-speed').textContent;
+    const weatherDescription = document.getElementById('weather-info').querySelector('p:nth-child(7)').textContent;
+
+    // Build the message
+    const message = `Weather in ${location}:\nTemperature: ${temperature}, Feels Like: ${feelsLike}, Humidity: ${humidity}, Wind Speed: ${windSpeed}, Weather: ${weatherDescription}`;
+
+    let shareUrl = '';
+
+    switch (platform) {
+        case 'whatsapp':
+            shareUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+            break;
+        case 'twitter':
+            shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
+            break;
+        case 'facebook':
+            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(message)}`;
+            break;
+        case 'linkedin':
+            shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(message)}`;
+            break;
+        default:
+            break;
+    }
+
+    // Open the respective social media platform with the message
+    window.open(shareUrl, '_blank');
+
+    // Close the share modal after 2 seconds
+    setTimeout(() => {
+        closeShareModal();
+    }, 2000);
+}
+
 // Fetch and display weather data
 async function getWeather() {
     const location = document.getElementById('location-input').value;
@@ -43,10 +105,7 @@ async function getWeatherByGeolocation() {
             const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
 
             try {
-                const [currentResponse, forecastResponse] = await Promise.all([
-                    fetch(currentWeatherUrl),
-                    fetch(forecastUrl)
-                ]);
+                const [currentResponse, forecastResponse] = await Promise.all([fetch(currentWeatherUrl), fetch(forecastUrl)]);
                 const currentData = await currentResponse.json();
                 const forecastData = await forecastResponse.json();
 
@@ -66,7 +125,7 @@ function toggleUnits() {
     unit = unit === 'metric' ? 'imperial' : 'metric'; // Toggle between Celsius and Fahrenheit
     const unitText = unit === 'metric' ? '°C' : '°F';
     document.getElementById('toggle-units').textContent = `Units: ${unitText}`;
-    
+
     // Re-fetch weather data based on the new unit
     const location = document.getElementById('location-input').value;
     if (location) {
@@ -145,11 +204,4 @@ function displayForecast(data) {
             }
         }
     });
-}
-
-// Initialize page with default weather (if any city is stored)
-const lastCity = localStorage.getItem('lastCity');
-if (lastCity) {
-    document.getElementById('location-input').value = lastCity;
-    getWeather();
 }
