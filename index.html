@@ -6,12 +6,20 @@
     <title>South Africa Weather Forecast</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>South Africa Weather Forecast</h1>
-        <input type="text" id="location-input" placeholder="Enter South African city">
+        <input type="text" id="location-input" placeholder="Enter South African city" list="city-suggestions">
+        <datalist id="city-suggestions">
+            <!-- Cities will be dynamically suggested here -->
+        </datalist>
         <button id="search-button">Search</button>
+        <button id="geo-button">Use My Location</button>
+        <button id="toggle-units">Units: °C</button>
+        
         <div id="weather-info">
             <!-- Weather data will be displayed here -->
             <p><strong>Temperature:</strong> <span id="temperature"></span>°C</p>
@@ -27,35 +35,9 @@
         </div>
     </div>
     <footer>
-        <p>&copy; 2024 Mapengo Innovatios. All rights reserved</p>
-        <div 
-        </div>
+        <p>&copy; 2024 Mapengo Innovations. All rights reserved</p>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <script src="script.js"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2364061825619418"
-     crossorigin="anonymous"></script>
-<!-- 1 -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2364061825619418"
-     data-ad-slot="4168297600"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2364061825619418"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="autorelaxed"
-     data-ad-client="ca-pub-2364061825619418"
-     data-ad-slot="6095622799"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2364061825619418"
-     crossorigin="anonymous"></script>
 </body>
 </html>
