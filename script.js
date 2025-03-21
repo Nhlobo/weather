@@ -10,6 +10,7 @@ document.getElementById('geo-button').addEventListener('click', getWeatherByGeol
 // Add event listener for unit toggle
 document.getElementById('toggle-units').addEventListener('click', toggleUnits);
 
+// Fetch and display weather data
 async function getWeather() {
     const location = document.getElementById('location-input').value;
     const apiKey = '27590cdf19ad5bc53ef27ac7ec78ae64'; // OpenWeatherMap API key
@@ -31,6 +32,7 @@ async function getWeather() {
     }
 }
 
+// Get weather by geolocation
 async function getWeatherByGeolocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(async (position) => {
@@ -59,6 +61,7 @@ async function getWeatherByGeolocation() {
     }
 }
 
+// Toggle between Celsius and Fahrenheit
 function toggleUnits() {
     unit = unit === 'metric' ? 'imperial' : 'metric'; // Toggle between Celsius and Fahrenheit
     const unitText = unit === 'metric' ? '°C' : '°F';
