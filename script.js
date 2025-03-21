@@ -5,6 +5,7 @@ async function getWeather() {
     const apiKey = '27590cdf19ad5bc53ef27ac7ec78ae64'; // Your OpenWeatherMap API key
     const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location},ZA&appid=${apiKey}&units=metric`;
     const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location},ZA&appid=${apiKey}&units=metric`;
+    const uvIndexUrl = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=0&lon=0`;
 
     try {
         const [currentResponse, forecastResponse] = await Promise.all([
@@ -24,11 +25,22 @@ async function getWeather() {
 function displayCurrentWeather(data) {
     const weatherInfo = document.getElementById('weather-info');
     const temp = data.main.temp;
+    const feelsLike = data.main.feels_like;
+    const humidity = data.main.humidity;
+    const windSpeed = data.wind.speed;
+    const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+    const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString();
+    
     const weatherCondition = temp <= 15 ? 'Cold' : temp <= 25 ? 'Warm' : 'Hot';
 
     weatherInfo.innerHTML = `
         <h2>${data.name}</h2>
         <p>Temperature: ${temp} °C</p>
+        <p>Feels Like: ${feelsLike} °C</p>
+        <p>Humidity: ${humidity}%</p>
+        <p>Wind Speed: ${windSpeed} m/s</p>
+        <p>Sunrise: ${sunrise}</p>
+        <p>Sunset: ${sunset}</p>
         <p>Weather: ${data.weather[0].description}</p>
         <p>Condition: ${weatherCondition}</p>
     `;
@@ -70,4 +82,4 @@ function displayForecast(data) {
             }
         }
     });
-                      }
+}
