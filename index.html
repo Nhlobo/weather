@@ -1,43 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>South Africa Weather Forecast</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-    <div class="container">
-        <h1>South Africa Weather Forecast</h1>
-        <input type="text" id="location-input" placeholder="Enter South African city" list="city-suggestions">
-        <datalist id="city-suggestions">
-            <!-- Cities will be dynamically suggested here -->
-        </datalist>
-        <button id="search-button">Search</button>
-        <button id="geo-button">Use My Location</button>
-        <button id="toggle-units">Units: °C</button>
-        
-        <div id="weather-info">
-            <!-- Weather data will be displayed here -->
-            <p><strong>Temperature:</strong> <span id="temperature"></span>°C</p>
-            <p><strong>Feels Like:</strong> <span id="feels-like"></span>°C</p>
-            <p><strong>Humidity:</strong> <span id="humidity"></span>%</p>
-            <p><strong>Wind Speed:</strong> <span id="wind-speed"></span> km/h</p>
-            <p><strong>UV Index:</strong> <span id="uv-index"></span></p>
-            <p><strong>Sunrise:</strong> <span id="sunrise"></span></p>
-            <p><strong>Sunset:</strong> <span id="sunset"></span></p>
-        </div>
-        <div id="forecast-info">
-            <!-- 5-day forecast data will be displayed here -->
-        </div>
-    </div>
-    <footer>
-        <p>&copy; 2024 Mapengo Innovations. All rights reserved</p>
-    </footer>
+<div class="container">
+    <h1>South Africa Weather Forecast</h1>
+    <input type="text" id="location-input" placeholder="Enter South African city" list="city-suggestions">
+    <datalist id="city-suggestions">
+        <!-- Cities will be dynamically suggested here -->
+    </datalist>
+    <button id="search-button">Search</button>
+    <button id="geo-button">Use My Location</button>
+    <button id="toggle-units">Units: °C</button>
     
-    <script src="script.js"></script>
-</body>
-</html>
+    <div id="weather-info">
+        <!-- Weather data will be displayed here -->
+        <p><strong>Temperature:</strong> <span id="temperature"></span>°C</p>
+        <p><strong>Feels Like:</strong> <span id="feels-like"></span>°C</p>
+        <p><strong>Humidity:</strong> <span id="humidity"></span>%</p>
+        <p><strong>Wind Speed:</strong> <span id="wind-speed"></span> km/h</p>
+        <p><strong>UV Index:</strong> <span id="uv-index"></span></p>
+        <p><strong>Sunrise:</strong> <span id="sunrise"></span></p>
+        <p><strong>Sunset:</strong> <span id="sunset"></span></p>
+    </div>
+
+    <!-- Share Button -->
+    <button id="share-button">Share Weather</button>
+
+    <!-- Share Modal -->
+    <div class="share-modal" id="share-modal">
+        <h3>Share Weather</h3>
+        <div class="icons">
+            <i class="fab fa-whatsapp icon" id="whatsapp-icon"></i>
+            <i class="fab fa-twitter icon" id="twitter-icon"></i>
+            <i class="fab fa-facebook icon" id="facebook-icon"></i>
+            <i class="fab fa-linkedin icon" id="linkedin-icon"></i>
+        </div>
+        <button id="close-modal">Close</button>
+    </div>
+    
+    <div id="forecast-info">
+        <!-- 5-day forecast data will be displayed here -->
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Mapengo Innovations. All rights reserved</p>
+</footer>
+
+<script src="script.js"></script>
