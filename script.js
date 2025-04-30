@@ -89,6 +89,8 @@ async function getWeather() {
 
         displayCurrentWeather(currentData);
         displayForecast(forecastData);
+        displayHourlyForecast(forecastData); // Display hourly forecast
+        getAirQuality(currentData.coord.lat, currentData.coord.lon); // Get air quality data
     } catch (error) {
         console.error('Error fetching weather data:', error);
     }
@@ -111,6 +113,8 @@ async function getWeatherByGeolocation() {
 
                 displayCurrentWeather(currentData);
                 displayForecast(forecastData);
+                displayHourlyForecast(forecastData); // Display hourly forecast
+                getAirQuality(currentData.coord.lat, currentData.coord.lon); // Get air quality data
             } catch (error) {
                 console.error('Error fetching weather data by geolocation:', error);
             }
@@ -143,11 +147,11 @@ function displayCurrentWeather(data) {
     const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
     const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString();
     const weatherDescription = data.weather[0].description;
-    
+
     // Set weather condition and background color dynamically
     const weatherCondition = temp <= 15 ? 'Cold' : temp <= 25 ? 'Warm' : 'Hot';
     const background = temp <= 15 ? 'cold.jpg' : temp <= 25 ? 'warm.jpg' : 'hot.jpg'; // Example backgrounds
-    
+
     // Update the weather info on the page
     weatherInfo.innerHTML = `
         <h2>${data.name}</h2>
@@ -174,7 +178,7 @@ function displayForecast(data) {
             <canvas id="forecastChart"></canvas>
         </div>
     `;
-    
+
     // Prepare the data for the chart
     const labels = data.list.filter((item, index) => index % 8 === 0).map(item => item.dt_txt.split(' ')[0]);
     const temps = data.list.filter((item, index) => index % 8 === 0).map(item => item.main.temp);
@@ -205,3 +209,95 @@ function displayForecast(data) {
         }
     });
 }
+
+// Display hourly forecast data
+function displayHourlyForecast(data) {
+    const hourlyForecast = document.getElementById('hourly-forecast');
+    hourlyForecast.innerHTML = '<h3>Hourly Forecast</h3>';
+
+    const hourlyData = data.list.slice(0, 8); // Get the first 8 hours of data
+    hourlyData.forEach(item => {
+        const time = new Date(item.dt * 1000).toLocaleTimeString();
+        const temp = item.main.temp;
+        const weatherDescription = item.weather[0].description;
+
+        const hourlyItem = document.createElement('div');
+        hourlyItem.classList.add('hourly-item');
+        hourlyItem.innerHTML = `
+            <p>${time}</p>
+            <p>${temp} °C</p>
+            <p>${weatherDescription}</p>
+        `;
+        hourlyForecast.appendChild(hourlyItem);
+    });
+}
+
+// Fetch and display air quality data
+async function getAirQuality(lat, lon) {
+    const apiKey = '27590cdf19ad5bc53ef27ac7ec78ae64'; // OpenWeatherMap API key
+    const airQualityUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+
+    try {
+        const response = await fetch(airQualityUrl);
+        const data = await response.json();
+        displayAirQuality(data);
+    } catch (error) {
+        console.error('Error fetching air quality data:', error);
+    }
+}
+
+// Display air quality data
+function displayAirQuality(data) {
+    const airQualityInfo = document.getElementById('air-quality-info');
+    const aqi = data.list[0].main.aqi;
+    const components = data.list[0].components;
+
+    airQualityInfo.innerHTML = `
+        <h3>Air Quality Index (AQI)</h3>
+        <p>AQI: ${aqi}</p>
+        <p>CO: ${components.co} μg/m³</p>
+        <p>NO2: ${components.no2} μg/m³</p>
+        <p>O3: ${components.o3} μg/m³</p>
+        <p>SO2: ${components.so2} μg/m³</p>
+        <p>PM2.5: ${components.pm2_5} μg/m³</p>
+        <p>PM10: ${components.pm10} μg/m³</p>
+    `;
+}
+
+// Favorite locations functionality
+let favoriteLocations = JSON.parse(localStorage.getItem('favoriteLocations')) || [];
+
+document.getElementById('add-favorite').addEventListener('click', () => {
+    const location = document.getElementById('location-input').value;
+    if (location && !favoriteLocations.includes(location)) {
+        favoriteLocations.push(location);
+        localStorage.setItem('favoriteLocations', JSON.stringify(favoriteLocations));
+        displayFavoriteLocations();
+    }
+});
+
+function displayFavoriteLocations() {
+    const favoriteLocationsDiv = document.getElementById('favorite-locations');
+    favoriteLocationsDiv.innerHTML = '<h3>Favorite Locations</h3>';
+
+    favoriteLocations.forEach(location => {
+        const favoriteItem = document.createElement('div');
+        favoriteItem.classList.add('favorite-item');
+        favoriteItem.innerHTML = `
+            <p>${location}</p>
+            <button class="remove-favorite" data-location="${location}">Remove</button>
+        `;
+        favoriteLocationsDiv.appendChild(favoriteItem);
+    });
+
+    document.querySelectorAll('.remove-favorite').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const locationToRemove = event.target.getAttribute('data-location');
+            favoriteLocations = favoriteLocations.filter(location => location !== locationToRemove);
+            localStorage.setItem('favoriteLocations', JSON.stringify(favoriteLocations));
+            displayFavoriteLocations();
+        });
+    });
+}
+
+displayFavoriteLocations();
